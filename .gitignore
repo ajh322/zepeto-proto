@@ -3,3 +3,7 @@ Library
 Logs
 ProjectSettings
 Temp
+*.sln
+.idea
+.vscode
+node_modules
