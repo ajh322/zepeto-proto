@@ -1,0 +1,37 @@
+fileFormatVersion: 2
+guid: 695fa729b9f350f4297ff70290080b66
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    ZEPETO_Character_Controller_1 = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nclass GameManager extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    Start() {\\r\\n        this.score
+    = 0;\\r\\n    }\\r\\n    Update() {\\r\\n        this.uIZepetoPlayerControl =
+    UnityEngine_1.GameObject.FindObjectOfType($typeof(ZEPETO_Character_Controller_1.UIZepetoPlayerControl));\\r\\n       
+    if (this.uIZepetoPlayerControl) {\\r\\n            this.uIZepetoPlayerControl.StartMoving();\\r\\n           
+    this.uIZepetoPlayerControl.Move(new UnityEngine_1.Vector2(10, 0));\\r\\n       
+    }\\r\\n    }\\r\\n    //\uCD08\uAE30\uD654\\r\\n    init() {\\r\\n        //\uCE74\uBA54\uB77C
+    \uCC3E\uAE30\\r\\n        //\uCE90\uB9AD\uD130 \uCC3E\uAE30\\r\\n    }\\r\\n   
+    //\uCE90\uB9AD\uD130 \uC6C0\uC9C1\uC774\uAE30\\r\\n    moveCharacter() {\\r\\n   
+    }\\r\\n    //\uCE74\uBA54\uB77C \uC548\uC6C0\uC9C1\uC774\uB3C4\uB85D \uD558\uAE30\\r\\n   
+    refreshCameraPosition() {\\r\\n        //x,1.035,-5\\r\\n    }\\r\\n    //\uB3D9\uC804\uBA39\uC74C\\r\\n   
+    increaseScore() {\\r\\n        this.textScore.text = (++this.score).toString();\\r\\n   
+    }\\r\\n}\\r\\nexports.default = GameManager;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2FtZU1hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJHYW1lTWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFxRDtBQUNyRCw2RUFBa0U7QUFDbEUsNkNBQXdEO0FBR3hELE1BQXFCLFdBQVksU0FBUSxxQ0FBcUI7SUFTMUQsS0FBSztRQUNELElBQUksQ0FBQyxLQUFLLEdBQUMsQ0FBQyxDQUFBO0lBQ2hCLENBQUM7SUFFRCxNQUFNO1FBRUYsSUFBSSxDQUFDLHFCQUFxQixHQUFHLHdCQUFVLENBQUMsZ0JBQWdCLFNBQUMsbURBQXFCLEVBQUcsQ0FBQTtRQUNqRixJQUFHLElBQUksQ0FBQyxxQkFBcUIsRUFBRTtZQUMzQixJQUFJLENBQUMscUJBQXFCLENBQUMsV0FBVyxFQUFFLENBQUE7WUFDeEMsSUFBSSxDQUFDLHFCQUFxQixDQUFDLElBQUksQ0FBQyxJQUFJLHFCQUFPLENBQUMsRUFBRSxFQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7U0FDdEQ7SUFDTCxDQUFDO0lBRUQsS0FBSztJQUNMLElBQUk7UUFFQSxRQUFRO1FBQ1IsUUFBUTtJQUNaLENBQUM7SUFFRCxVQUFVO0lBQ1YsYUFBYTtJQUdiLENBQUM7SUFFRCxlQUFlO0lBQ2YscUJBQXFCO1FBRWpCLFlBQVk7SUFDaEIsQ0FBQztJQUVELE1BQU07SUFDTixhQUFhO1FBRVQsSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLEdBQUMsQ0FBQyxFQUFFLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxRQUFRLEVBQUUsQ0FBQTtJQUNqRCxDQUFDO0NBQ0o7QUE5Q0QsOEJBOENDIn0=\",\"assetPath\":\"Assets/GameManager.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"b\",\"type\":\"System.Int32\",\"isArray\":false,\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"textScore\",\"type\":\"UnityEngine.UI.Text\",\"isArray\":false,\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"score\",\"type\":\"System.Int32\",\"isArray\":false,\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"camera\",\"type\":\"UnityEngine.Camera\",\"isArray\":false,\"attributes\":[]},{\"assembly\":\"ZEPETO.Character.Controller\",\"name\":\"uIZepetoPlayerControl\",\"type\":\"ZEPETO.Character.Controller.UIZepetoPlayerControl\",\"isArray\":false,\"attributes\":[]}],\"name\":\"GameManager\",\"description\":\"\"},\"isCompiled\":true}"
+  typescriptHash: e16ddc5f05e8b1ea3ad251419811347a

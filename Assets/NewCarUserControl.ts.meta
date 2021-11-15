@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 93912b9a54e16a44499af9c65f3af8a7
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    NewCarController_1 = require(\"./NewCarController\");\r\nclass NewCarUserControl
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Awake() {\r\n        //
+    get the car controller\r\n        this.m_Car = this.GetComponent($typeof(NewCarController_1.default));\r\n   
+    }\r\n    FixedUpdate() {\r\n        // pass the input to the car!\r\n       
+    let car;\r\n        car = this.GetComponent($typeof(NewCarController_1.default));\r\n       
+    let h = 0;\r\n        let v = 1;\r\n        car.Move(h, v, v, 0);\r\n    }\r\n}\r\nexports.default
+    = NewCarUserControl;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTmV3Q2FyVXNlckNvbnRyb2wuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJOZXdDYXJVc2VyQ29udHJvbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFxRDtBQUNyRCx5REFBa0Q7QUFFbEQsTUFBcUIsaUJBQWtCLFNBQVEscUNBQXFCO0lBR2hFLEtBQUs7UUFFRCx5QkFBeUI7UUFDekIsSUFBSSxDQUFDLEtBQUssR0FBRyxJQUFJLENBQUMsWUFBWSxTQUFDLDBCQUFnQixFQUFHLENBQUM7SUFDdkQsQ0FBQztJQUVELFdBQVc7UUFFUCw2QkFBNkI7UUFDN0IsSUFBSSxHQUFvQixDQUFDO1FBQ3pCLEdBQUcsR0FBRyxJQUFJLENBQUMsWUFBWSxTQUFDLDBCQUFnQixFQUFHLENBQUM7UUFDNUMsSUFBSSxDQUFDLEdBQVMsQ0FBQyxDQUFDO1FBQ2hCLElBQUksQ0FBQyxHQUFTLENBQUMsQ0FBQztRQUNoQixHQUFHLENBQUMsSUFBSSxDQUFDLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDO0lBQ3pCLENBQUM7Q0FHSjtBQXBCRCxvQ0FvQkMifQ==","assetPath":"Assets/NewCarUserControl.ts","manifest":{"properties":[{"assembly":"","name":"m_Car","type":"C:/Users/user/Desktop/workspace/Test4/Assets/NewCarController.default","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"test","type":"System.Single","isArray":false,"attributes":[]}],"name":"NewCarUserControl","description":""},"isCompiled":true}'
+  typescriptHash: 844c6c20e3a8b21317a60732871d463a

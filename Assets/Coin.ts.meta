@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: daf1a26ebfce25246b5b63ca27b9196f
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst GameManager_1 = require(\"./GameManager\");\r\nclass
+    Coin extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    OnTriggerEnter()
+    {\r\n        console.log(''OnTriggerEnter.'');\r\n        UnityEngine_1.GameObject.Find(\"GameManager\").GetComponent($typeof(GameManager_1.default)).increaseScore();\r\n       
+    this.gameObject.SetActive(false);\r\n    }\r\n}\r\nexports.default = Coin;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ29pbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkNvaW4udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBcUQ7QUFHckQsNkNBQXVDO0FBQ3ZDLCtDQUF3QztBQUd4QyxNQUFxQixJQUFLLFNBQVEscUNBQXFCO0lBR25ELGNBQWM7UUFDVixPQUFPLENBQUMsR0FBRyxDQUFDLGlCQUFpQixDQUFDLENBQUM7UUFDL0Isd0JBQVUsQ0FBQyxJQUFJLENBQUMsYUFBYSxDQUFDLENBQUMsWUFBWSxTQUFDLHFCQUFXLEdBQUksYUFBYSxFQUFFLENBQUE7UUFDMUUsSUFBSSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUE7SUFDcEMsQ0FBQztDQUVKO0FBVEQsdUJBU0MifQ==","assetPath":"Assets/Coin.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"b","type":"System.Int32","isArray":false,"attributes":[]}],"name":"Coin","description":""},"isCompiled":true}'
+  typescriptHash: 3be1a982c2efbca76e6880891981ee6c

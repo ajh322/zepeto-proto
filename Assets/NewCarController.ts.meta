@@ -1,0 +1,73 @@
+fileFormatVersion: 2
+guid: f0178ce46fdcfa744a8a833ac99fa535
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nclass NewCarController extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.m_Downforce
+    = 100;\r\n        this.m_Topspeed = 200;\r\n        this.m_RevRangeBoundary =
+    1;\r\n        this.k_ReversingThreshold = 0.01;\r\n    }\r\n    get CurrentSteerAngle()
+    {\r\n        return this.m_SteerAngle;\r\n    }\r\n    get CurrentSpeed() {\r\n       
+    return this.m_Rigidbody.velocity.magnitude * 2.23693629;\r\n    }\r\n    get
+    MaxSpeed() {\r\n        return this.m_Topspeed;\r\n    }\r\n    Awake() {\r\n       
+    this.m_Rigidbody = this.GetComponent($typeof(UnityEngine_1.Rigidbody));\r\n       
+    this.m_CurrentTorque = this.m_FullTorqueOverAllWheels - (this.m_TractionControl
+    * this.m_FullTorqueOverAllWheels);\r\n    }\r\n    Move(steering, accel, footbrake,
+    handbrake) {\r\n        for (let i = 0; i < 4; i++) {\r\n            let quat
+    = new class {\r\n            };\r\n            let position = new class {\r\n           
+    };\r\n            this.m_WheelColliders[i].GetWorldPose(position, quat);\r\n           
+    this.m_WheelMeshes[i].transform.position = position.value;\r\n            this.m_WheelMeshes[i].transform.rotation
+    = quat.value;\r\n        }\r\n        //clamp input values\r\n        steering
+    = UnityEngine_1.Mathf.Clamp(steering, -1, 1);\r\n        this.AccelInput = accel
+    = UnityEngine_1.Mathf.Clamp(accel, 0, 1);\r\n        this.BrakeInput = footbrake
+    = -1 * UnityEngine_1.Mathf.Clamp(footbrake, -1, 0);\r\n        handbrake = UnityEngine_1.Mathf.Clamp(handbrake,
+    0, 1);\r\n        //Set the steer on the front wheels.\r\n        //Assuming
+    that wheels 0 and 1 are the front wheels.\r\n        this.m_SteerAngle = steering
+    * this.m_MaximumSteerAngle;\r\n        this.m_WheelColliders[0].steerAngle =
+    this.m_SteerAngle;\r\n        this.m_WheelColliders[1].steerAngle = this.m_SteerAngle;\r\n       
+    // SteerHelper();\r\n        this.ApplyDrive(accel, footbrake);\r\n        this.CapSpeed();\r\n       
+    //Set the handbrake.\r\n        //Assuming that wheels 2 and 3 are the rear wheels.\r\n       
+    if (handbrake > 0) {\r\n            var hbTorque = handbrake * this.m_MaxHandbrakeTorque;\r\n           
+    this.m_WheelColliders[2].brakeTorque = hbTorque;\r\n            this.m_WheelColliders[3].brakeTorque
+    = hbTorque;\r\n        }\r\n        // CalculateRevs();\r\n        // GearChanging();\r\n       
+    // AddDownForce();\r\n        // CheckForWheelSpin();\r\n        this.TractionControl();\r\n   
+    }\r\n    ApplyDrive(accel, footbrake) {\r\n        let thrustTorque;\r\n       
+    thrustTorque = accel * (this.m_CurrentTorque / 4);\r\n        for (let i = 0;
+    i < 4; i++)\r\n            this.m_WheelColliders[i].motorTorque = thrustTorque;\r\n       
+    for (let i = 0; i < 4; i++) {\r\n            if (this.CurrentSpeed > 5 && UnityEngine_1.Vector3.Angle(this.transform.forward,
+    this.m_Rigidbody.velocity) < 50) {\r\n                this.m_WheelColliders[i].brakeTorque
+    = this.m_BrakeTorque * footbrake;\r\n            }\r\n            else if (footbrake
+    > 0) {\r\n                this.m_WheelColliders[i].brakeTorque = 0;\r\n               
+    this.m_WheelColliders[i].motorTorque = -this.m_ReverseTorque * footbrake;\r\n           
+    }\r\n        }\r\n    }\r\n    CapSpeed() {\r\n        let speed = this.m_Rigidbody.velocity.magnitude;\r\n       
+    speed *= 2.23693629;\r\n        let multiplier = this.m_Topspeed / 2.23693629;\r\n       
+    if (speed > this.m_Topspeed)\r\n            this.m_Rigidbody.velocity = new UnityEngine_1.Vector3(this.m_Rigidbody.velocity.normalized.x
+    * multiplier, this.m_Rigidbody.velocity.normalized.y * multiplier, this.m_Rigidbody.velocity.normalized.z
+    * multiplier);\r\n    }\r\n    TractionControl() {\r\n        let wheelHit =
+    new class {\r\n        };\r\n        for (let i = 0; i < 4; i++) {\r\n           
+    this.m_WheelColliders[i].GetGroundHit(wheelHit);\r\n            this.AdjustTorque(wheelHit.value.forwardSlip);\r\n       
+    }\r\n    }\r\n    AdjustTorque(forwardSlip) {\r\n        if (forwardSlip >= this.m_SlipLimit
+    && this.m_CurrentTorque >= 0) {\r\n            this.m_CurrentTorque -= 10 * this.m_TractionControl;\r\n       
+    }\r\n        else {\r\n            this.m_CurrentTorque += 10 * this.m_TractionControl;\r\n           
+    if (this.m_CurrentTorque > this.m_FullTorqueOverAllWheels) {\r\n               
+    this.m_CurrentTorque = this.m_FullTorqueOverAllWheels;\r\n            }\r\n       
+    }\r\n    }\r\n}\r\nexports.default = NewCarController;\r\nNewCarController.NoOfGears
+    = 5;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTmV3Q2FyQ29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk5ld0NhckNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBcUQ7QUFDckQsNkNBQXVHO0FBRXZHLE1BQXFCLGdCQUFpQixTQUFRLHFDQUFxQjtJQUFuRTs7UUFZVyxnQkFBVyxHQUFTLEdBQUcsQ0FBQztRQUN4QixlQUFVLEdBQVMsR0FBRyxDQUFDO1FBRXZCLHVCQUFrQixHQUFTLENBQUMsQ0FBQztRQWE1Qix5QkFBb0IsR0FBUyxJQUFJLENBQUM7SUFzSTlDLENBQUM7SUFqSUcsSUFBVyxpQkFBaUI7UUFFeEIsT0FBTyxJQUFJLENBQUMsWUFBWSxDQUFDO0lBQzdCLENBQUM7SUFDRCxJQUFXLFlBQVk7UUFFbkIsT0FBTyxJQUFJLENBQUMsV0FBVyxDQUFDLFFBQVEsQ0FBQyxTQUFTLEdBQUMsVUFBVSxDQUFDO0lBQzFELENBQUM7SUFFRCxJQUFXLFFBQVE7UUFFZixPQUFPLElBQUksQ0FBQyxVQUFVLENBQUM7SUFDM0IsQ0FBQztJQUlELEtBQUs7UUFFRCxJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxZQUFZLFNBQUMsdUJBQVMsRUFBRyxDQUFDO1FBQ2xELElBQUksQ0FBQyxlQUFlLEdBQUcsSUFBSSxDQUFDLHlCQUF5QixHQUFHLENBQUMsSUFBSSxDQUFDLGlCQUFpQixHQUFDLElBQUksQ0FBQyx5QkFBeUIsQ0FBQyxDQUFDO0lBQ3BILENBQUM7SUFFRCxJQUFJLENBQUMsUUFBYyxFQUFFLEtBQVcsRUFBRSxTQUFlLEVBQUUsU0FBZTtRQUU5RCxLQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsRUFBRSxFQUMxQjtZQUNJLElBQUksSUFBSSxHQUFvQixJQUFJO2FBRS9CLENBQUE7WUFDRCxJQUFJLFFBQVEsR0FBaUIsSUFBSTthQUVoQyxDQUFDO1lBQ0YsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUMsQ0FBQyxDQUFDLFlBQVksQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLENBQUM7WUFDdEQsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxTQUFTLENBQUMsUUFBUSxHQUFHLFFBQVEsQ0FBQyxLQUFLLENBQUM7WUFDMUQsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxTQUFTLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUM7U0FDekQ7UUFFRCxvQkFBb0I7UUFDcEIsUUFBUSxHQUFHLG1CQUFLLENBQUMsS0FBSyxDQUFDLFFBQVEsRUFBRSxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQztRQUN4QyxJQUFJLENBQUMsVUFBVSxHQUFHLEtBQUssR0FBRyxtQkFBSyxDQUFDLEtBQUssQ0FBQyxLQUFLLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDO1FBQ25ELElBQUksQ0FBQyxVQUFVLEdBQUcsU0FBUyxHQUFHLENBQUMsQ0FBQyxHQUFDLG1CQUFLLENBQUMsS0FBSyxDQUFDLFNBQVMsRUFBRSxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQztRQUMvRCxTQUFTLEdBQUcsbUJBQUssQ0FBQyxLQUFLLENBQUMsU0FBUyxFQUFFLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQztRQUV6QyxvQ0FBb0M7UUFDcEMsb0RBQW9EO1FBQ3BELElBQUksQ0FBQyxZQUFZLEdBQUcsUUFBUSxHQUFDLElBQUksQ0FBQyxtQkFBbUIsQ0FBQztRQUN0RCxJQUFJLENBQUMsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUMsVUFBVSxHQUFHLElBQUksQ0FBQyxZQUFZLENBQUM7UUFDeEQsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUMsQ0FBQyxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUMsWUFBWSxDQUFDO1FBRXhELGlCQUFpQjtRQUNqQixJQUFJLENBQUMsVUFBVSxDQUFDLEtBQUssRUFBRSxTQUFTLENBQUMsQ0FBQztRQUNsQyxJQUFJLENBQUMsUUFBUSxFQUFFLENBQUM7UUFFaEIsb0JBQW9CO1FBQ3BCLG1EQUFtRDtRQUNuRCxJQUFJLFNBQVMsR0FBRyxDQUFDLEVBQ2pCO1lBQ0ksSUFBSSxRQUFRLEdBQUcsU0FBUyxHQUFDLElBQUksQ0FBQyxvQkFBb0IsQ0FBQztZQUNuRCxJQUFJLENBQUMsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUMsV0FBVyxHQUFHLFFBQVEsQ0FBQztZQUNoRCxJQUFJLENBQUMsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUMsV0FBVyxHQUFHLFFBQVEsQ0FBQztTQUNuRDtRQUdELG1CQUFtQjtRQUNuQixrQkFBa0I7UUFFbEIsa0JBQWtCO1FBQ2xCLHVCQUF1QjtRQUN2QixJQUFJLENBQUMsZUFBZSxFQUFFLENBQUM7SUFDM0IsQ0FBQztJQUVELFVBQVUsQ0FBQyxLQUFXLEVBQUUsU0FBZTtRQUVuQyxJQUFJLFlBQWtCLENBQUM7UUFDdkIsWUFBWSxHQUFHLEtBQUssR0FBRyxDQUFDLElBQUksQ0FBQyxlQUFlLEdBQUcsQ0FBQyxDQUFDLENBQUM7UUFDbEQsS0FBSyxJQUFJLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEVBQUU7WUFDdEIsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUMsQ0FBQyxDQUFDLFdBQVcsR0FBRyxZQUFZLENBQUM7UUFFeEQsS0FBSyxJQUFJLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEVBQUUsRUFDMUI7WUFDSSxJQUFJLElBQUksQ0FBQyxZQUFZLEdBQUcsQ0FBQyxJQUFJLHFCQUFPLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsT0FBTyxFQUFFLElBQUksQ0FBQyxXQUFXLENBQUMsUUFBUSxDQUFDLEdBQUcsRUFBRSxFQUNsRztnQkFDSSxJQUFJLENBQUMsZ0JBQWdCLENBQUMsQ0FBQyxDQUFDLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxhQUFhLEdBQUMsU0FBUyxDQUFDO2FBQ3ZFO2lCQUNJLElBQUksU0FBUyxHQUFHLENBQUMsRUFDdEI7Z0JBQ0ksSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUMsQ0FBQyxDQUFDLFdBQVcsR0FBRyxDQUFDLENBQUM7Z0JBQ3pDLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsQ0FBQyxXQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsZUFBZSxHQUFDLFNBQVMsQ0FBQzthQUMxRTtTQUNKO0lBQ0wsQ0FBQztJQUVELFFBQVE7UUFFSixJQUFJLEtBQUssR0FBUyxJQUFJLENBQUMsV0FBVyxDQUFDLFFBQVEsQ0FBQyxTQUFTLENBQUM7UUFDdEQsS0FBSyxJQUFJLFVBQVUsQ0FBQztRQUVwQixJQUFJLFVBQVUsR0FBUyxJQUFJLENBQUMsVUFBVSxHQUFDLFVBQVUsQ0FBQztRQUNsRCxJQUFJLEtBQUssR0FBRyxJQUFJLENBQUMsVUFBVTtZQUN2QixJQUFJLENBQUMsV0FBVyxDQUFDLFFBQVEsR0FBRyxJQUFJLHFCQUFPLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxRQUFRLENBQUMsVUFBVSxDQUFDLENBQUMsR0FBQyxVQUFVLEVBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxRQUFRLENBQUMsVUFBVSxDQUFDLENBQUMsR0FBQyxVQUFVLEVBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxRQUFRLENBQUMsVUFBVSxDQUFDLENBQUMsR0FBQyxVQUFVLENBQUMsQ0FBQztJQUN2TSxDQUFDO0lBRUQsZUFBZTtRQUVYLElBQUksUUFBUSxHQUFrQixJQUFJO1NBRWpDLENBQUE7UUFDRCxLQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQ3hCLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsQ0FBQyxZQUFZLENBQUMsUUFBUSxDQUFDLENBQUM7WUFDaEQsSUFBSSxDQUFDLFlBQVksQ0FBQyxRQUFRLENBQUMsS0FBSyxDQUFDLFdBQVcsQ0FBQyxDQUFDO1NBQ2pEO0lBQ0wsQ0FBQztJQUVELFlBQVksQ0FBQyxXQUFpQjtRQUUxQixJQUFJLFdBQVcsSUFBSSxJQUFJLENBQUMsV0FBVyxJQUFJLElBQUksQ0FBQyxlQUFlLElBQUksQ0FBQyxFQUNoRTtZQUNJLElBQUksQ0FBQyxlQUFlLElBQUksRUFBRSxHQUFHLElBQUksQ0FBQyxpQkFBaUIsQ0FBQztTQUN2RDthQUVEO1lBQ0ksSUFBSSxDQUFDLGVBQWUsSUFBSSxFQUFFLEdBQUcsSUFBSSxDQUFDLGlCQUFpQixDQUFDO1lBQ3BELElBQUksSUFBSSxDQUFDLGVBQWUsR0FBRyxJQUFJLENBQUMseUJBQXlCLEVBQ3pEO2dCQUNJLElBQUksQ0FBQyxlQUFlLEdBQUcsSUFBSSxDQUFDLHlCQUF5QixDQUFDO2FBQ3pEO1NBQ0o7SUFDTCxDQUFDOztBQWhLTCxtQ0FrS0M7QUFwSmlCLDBCQUFTLEdBQU8sQ0FBQyxDQUFDIn0=","assetPath":"Assets/NewCarController.ts","manifest":{"properties":[{"assembly":"UnityEngine.VehiclesModule","name":"m_WheelColliders","type":"UnityEngine.WheelCollider[]","isArray":true,"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"m_WheelMeshes","type":"UnityEngine.GameObject[]","isArray":true,"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"m_CentreOfMassOffset","type":"UnityEngine.Vector3","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_MaximumSteerAngle","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_SteerHelper","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_TractionControl","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_FullTorqueOverAllWheels","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_ReverseTorque","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_MaxHandbrakeTorque","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_Downforce","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_Topspeed","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_RevRangeBoundary","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_SlipLimit","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"m_BrakeTorque","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"Skidding","type":"System.Boolean","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"BrakeInput","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"Revs","type":"System.Single","isArray":false,"attributes":[]},{"assembly":"mscorlib","name":"AccelInput","type":"System.Single","isArray":false,"attributes":[]}],"name":"NewCarController","description":""},"isCompiled":true}'
+  typescriptHash: f294fef3610cfe845ba91a388435d57c
